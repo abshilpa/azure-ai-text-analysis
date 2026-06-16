@@ -137,6 +137,19 @@ L'Hotel Buckingham, Londres, UK ...
 
 Language: French
 ```
+<img width="1357" height="891" alt="get language --french" src="https://github.com/user-attachments/assets/e5472e30-7015-472a-b565-6860bba68bc8" />
+
+---
+<img width="1336" height="936" alt="entites-1" src="https://github.com/user-attachments/assets/3e331ac4-8786-466d-8732-20e7656da6ef" />
+
+---
+
+<img width="1332" height="897" alt="reducted -pii output " src="https://github.com/user-attachments/assets/ebe1ac64-8aee-48e2-b926-83ff96382d99" />
+
+---
+
+<img width="1866" height="892" alt="lucky-ai --azure langunage " src="https://github.com/user-attachments/assets/8479c8dc-ea97-4ce2-a07c-c3be615896a2" />
+
 
 ---
 
