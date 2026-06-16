@@ -1,263 +1,179 @@
-# Azure AI Language Text Analysis Application
+# Azure AI Text Analytics — Hotel Review Analyzer 🏨🤖
 
-## Overview
-
-This project demonstrates how to use **Azure AI Language Service** and the **Azure AI Foundry SDK** to perform advanced text analytics on hotel review documents.
-
-The application processes text files containing customer reviews and performs the following Natural Language Processing (NLP) tasks:
-
-* Language Detection
-* Named Entity Recognition (NER)
-* Personally Identifiable Information (PII) Detection
-* PII Redaction
-
-The project is built using Python and the Azure AI Text Analytics SDK.
+A hands-on project built as part of the **Microsoft Learn: Develop AI Language and Speech Solutions on Azure** course. This application uses **Azure AI Language** to analyze hotel reviews — detecting language, extracting named entities, and redacting personally identifiable information (PII).
 
 ---
 
-## Features
+## 📌 Project Overview
 
-### Language Detection
+Travel agencies receive hotel reviews in multiple languages from around the world. This application automates the process of:
 
-Automatically identifies the language used in each review document.
-
-Example:
-
-Input:
-
-```text
-Bonjour, cet hôtel était magnifique.
-```
-
-Output:
-
-```text
-Language: French
-```
-
-### Named Entity Recognition (NER)
-
-Extracts important entities from text such as:
-
-* People
-* Locations
-* Organizations
-* Dates
-* Events
-
-Example:
-
-Input:
-
-```text
-Satya Nadella visited London.
-```
-
-Output:
-
-```text
-Satya Nadella (Person)
-London (Location)
-```
-
-### Personally Identifiable Information (PII) Detection
-
-Detects sensitive information including:
-
-* Names
-* Phone Numbers
-* Email Addresses
-* Addresses
-* Financial Information
-
-### PII Redaction
-
-Automatically masks sensitive information before publication or storage.
-
-Example:
-
-Input:
-
-```text
-John Smith lives at 123 Main Street.
-```
-
-Output:
-
-```text
-********** lives at *************
-```
+- 🌍 **Detecting the language** each review is written in
+- 🏷️ **Extracting named entities** such as people, places, dates, and addresses
+- 🔒 **Redacting PII** (emails, names, addresses) before publishing reviews publicly
 
 ---
 
-## Technologies Used
+## 🛠️ Technologies Used
 
-* Python 3.13
-* Azure AI Language Service
-* Azure AI Foundry
-* Azure Identity SDK
-* Azure Text Analytics SDK
-* Visual Studio Code
-* Azure CLI
+| Technology | Purpose |
+|---|---|
+| Python 3.13 | Programming language |
+| Azure AI Language (Text Analytics) | NLP & text analysis |
+| Azure AI Foundry | AI resource management |
+| Azure CLI | Authentication & resource management |
+| Git & GitHub | Version control |
+| Visual Studio Code | Development environment |
+| `azure-ai-textanalytics` SDK | Python SDK for Azure Language |
+| `python-dotenv` | Environment variable management |
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
-```text
+```
 text-analysis/
-│
-├── reviews/
-│   ├── review1.txt
-│   ├── review2.txt
-│   └── review3.txt
-│
-├── text-analysis.py
-├── requirements.txt
-├── .env
-└── README.md
+├── reviews/               # Sample hotel review text files
+│   ├── review1.txt        # English review - London hotel
+│   ├── review2.txt        # English review - London hotel
+│   ├── review3.txt        # English review - San Francisco hotel
+│   ├── review4.txt        # English review - San Francisco hotel
+│   └── review5.txt        # French review - London hotel
+├── .env                   # Azure credentials (not committed to GitHub)
+├── requirements.txt       # Python dependencies
+└── text-analysis.py       # Main application code
 ```
 
 ---
 
-## Setup Instructions
+## ⚙️ Setup Instructions
 
-### 1. Clone the Repository
+### Prerequisites
+Before running this project, make sure you have:
 
+- ✅ An active **Azure subscription**
+- ✅ **Python 3.13.x** installed
+- ✅ **Git** installed and configured
+- ✅ **Azure CLI** installed
+- ✅ **Visual Studio Code** installed
+
+---
+
+### Step 1 — Clone the Repository
 ```bash
-git clone https://github.com/yourusername/azure-ai-text-analysis.git
-cd azure-ai-text-analysis
+git clone https://github.com/microsoftlearning/mslearn-ai-language
+cd mslearn-ai-language
 ```
 
-### 2. Create Virtual Environment
+### Step 2 — Navigate to the Exercise Folder
+```bash
+cd Labfiles/01-analyze-text/Python/text-analysis
+```
 
+### Step 3 — Create and Activate Virtual Environment
 ```bash
 python -m venv .venv
+.venv\Scripts\activate        # Windows
+source .venv/bin/activate     # Mac/Linux
 ```
 
-Activate the environment:
-
-Windows
-
-```bash
-.venv\Scripts\activate
-```
-
-Mac/Linux
-
-```bash
-source .venv/bin/activate
-```
-
-### 3. Install Dependencies
-
+### Step 4 — Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Configure Environment Variables
+### Step 5 — Set Up Azure AI Language Resource
+1. Go to [Azure Portal](https://portal.azure.com)
+2. Create an **Azure AI Language** resource
+3. Copy your **Endpoint** and **API Key**
 
-Create a `.env` file:
-
-```env
-PROJECT_ENDPOINT=https://your-foundry-resource.services.ai.azure.com
+### Step 6 — Configure Environment Variables
+Create a `.env` file in the `text-analysis` folder:
+```
+FOUNDRY_ENDPOINT=https://your-resource.cognitiveservices.azure.com/
+AI_SERVICE_KEY=your-api-key-here
 ```
 
----
-
-## Azure Authentication
-
-Login to Azure:
-
+### Step 7 — Login to Azure CLI
 ```bash
 az login
 ```
 
-The application uses:
-
-```python
-DefaultAzureCredential()
-```
-
-to securely authenticate with Azure AI services.
-
----
-
-## Running the Application
-
+### Step 8 — Run the Application
 ```bash
 python text-analysis.py
 ```
 
 ---
 
-## Sample Output
+## 📊 Sample Output
 
-```text
-Review:
-The hotel was amazing and located near London Bridge.
+```
+-------------
+review1.txt
 
-Language:
-English
+Good Hotel and staff
+The Royal Hotel, London, UK ...
 
-Entities:
-London Bridge (Location)
+Language: English
 
-PII Entities:
-John Smith (Person)
+Entities
+    The Royal Hotel, London, UK (Address)
+    Buckingham Palace (Location)
+    Westminster Abbey (Location)
+    alex@contoso.com (Email)
+
+PII Entities
+    alex@contoso.com (Email)
 
 Redacted Text:
-********** stayed at the hotel.
+ Good Hotel and staff - Contact me at **************** for more details.
+
+-------------
+review5.txt
+
+Un hôtel agréable
+L'Hotel Buckingham, Londres, UK ...
+
+Language: French
 ```
 
 ---
 
-## Learning Outcomes
+## 🧠 What I Learned
 
-Through this project, I gained hands-on experience with:
-
-* Azure AI Language Service
-* Azure AI Foundry
-* NLP Pipelines
-* Entity Recognition
-* PII Detection and Redaction
-* Azure SDK Authentication
-* Cloud-based AI Development
-
----
-
-## Future Improvements
-
-* Sentiment Analysis
-* Key Phrase Extraction
-* Multi-document Processing
-* Batch Inference
-* REST API Deployment using FastAPI
-* Integration with Azure OpenAI
-* RAG-based Document Analysis
+- How to use the **Azure AI Language SDK** in Python
+- Connecting to Azure services using **API Key authentication**
+- **Language detection** across multiple languages (English, French, etc.)
+- **Named Entity Recognition (NER)** — identifying locations, people, dates, emails
+- **PII detection and redaction** for data privacy compliance
+- Using **Azure CLI** for resource management and authentication
+- Setting up Python **virtual environments** and managing dependencies
+- Working with **Git** and **GitHub** for version control
 
 ---
 
-## Certification Alignment
+## 🔐 Security Note
 
-This project supports preparation for:
-
-**Microsoft Azure AI Engineer Associate (AI-102)**
-
-Relevant skills covered:
-
-* Analyze Text with Azure AI Language
-* Build NLP Solutions
-* Authenticate Azure Resources
-* Process and Secure Text Data
-* Develop AI Applications using Azure SDKs
+The `.env` file containing API keys is **not committed to GitHub**. It is listed in `.gitignore` to protect sensitive credentials.
 
 ---
 
-## Author
+## 📚 Reference
 
-**Shilpa Abbugari**
+- [Microsoft Learn — Develop AI Language Solutions on Azure](https://learn.microsoft.com/en-us/training/)
+- [Azure AI Language Documentation](https://learn.microsoft.com/en-us/azure/ai-services/language-service/)
+- [Azure Text Analytics Python SDK](https://learn.microsoft.com/en-us/python/api/overview/azure/ai-textanalytics-readme)
 
-MSc Data Science | AI Engineer | Machine Learning Enthusiast
+---
 
-Currently building practical Azure AI, Generative AI, and Machine Learning projects to strengthen AI Engineering skills and prepare for industry roles.
+## 👩‍💻 Author
+
+**Shilpa** — Currently learning Azure AI Services and building hands-on projects to develop cloud AI skills.
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://linkedin.com)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-black)](https://github.com)
+
+---
+
+> 💡 *This project was completed as part of my Azure AI learning journey. I am actively building skills in cloud-based AI services, NLP, and Python development.*
