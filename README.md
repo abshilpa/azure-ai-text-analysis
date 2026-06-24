@@ -1,6 +1,6 @@
 # Azure AI Text Analytics — Hotel Review Analyzer 🏨🤖
 
-A hands-on project built as part of the **Microsoft Learn: Develop AI Language and Speech Solutions on Azure** course. This application uses **Azure AI Language** to analyze hotel reviews — detecting language, extracting named entities, and redacting personally identifiable information (PII).
+A hands-on project built as part of the **Microsoft Learn: Develop AI Language and Speech Solutions on Azure** course. This application uses **Azure AI Language** to analyze hotel reviews detecting language, extracting named entities, and redacting personally identifiable information (PII).
 
 ---
 
